@@ -235,6 +235,7 @@ public class Eln {
     public static ItemEnergyInventoryProcess itemEnergyInventoryProcess;
     public static CreativeTabs creativeTab;
 
+    public static Item laserDiode;
     public static Item swordCopper, hoeCopper, shovelCopper, pickaxeCopper, axeCopper;
     public static GenericItemUsingDamageDescriptorWithComment plateCopper;
 
@@ -574,6 +575,11 @@ public class Eln {
 
         oreBlock = (OreBlock) new OreBlock().setCreativeTab(creativeTab).setBlockName("OreEln");
 
+        laserDiode = (Item) new Item()
+            .setCreativeTab(creativeTab)
+            .setTextureName("eln:laserdiode")
+            .setUnlocalizedName("eln:laserdiode");
+        GameRegistry.registerItem(laserDiode, "eln.laserdiode");
         arcClayBlock = new ArcClayBlock();
         arcMetalBlock = new ArcMetalBlock();
 
@@ -946,6 +952,7 @@ public class Eln {
         recipeThermalSensor();
         recipeSixNodeMisc();
 
+        recipeLaserDiode();
 
         recipeTurret();
         recipeMachine();
@@ -7749,16 +7756,25 @@ public class Eln {
             'R', dictAdvancedChip);
     }
 
+    private void recipeLaserDiode() {
+        addRecipe(new ItemStack(laserDiode, 1),
+            " P ",
+            "SDS",
+            "CSC",
+            'P', Blocks.glass_pane,
+            'D', Items.diamond,
+            'S', "plateSilicon",
+            'C', findItemStack("Copper Cable"));
+    }
 
     private void recipeTurret() {
         addRecipe(findItemStack("800V Defence Turret", 1),
-            " R ",
-            "CMC",
-            " c ",
+            " D ",
+            "DCD",
+            " M ",
             'M', findItemStack("Advanced Machine Block"),
             'C', dictAdvancedChip,
-            'c', highVoltageCableDescriptor.newItemStack(),
-            'R', new ItemStack(Blocks.redstone_block));
+            'D', laserDiode);
 
     }
 
